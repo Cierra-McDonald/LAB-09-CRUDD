@@ -44,7 +44,7 @@ describe('lab-08-CRRUD-build routes', () => {
   })
   it('gets a cat by id and deletes from the database', async () => { 
     const response = await request(app)
-      .delete('/api/v1/cats')
+      .delete('/api/v1/cats/1')
 
       expect(response.body).toEqual({})
   })
