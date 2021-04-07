@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 
 describe('lab-08-CRRUD-build routes', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     return setup(pool);
   });
   it('creates a cat and updates in the cats database', () => { 
@@ -20,4 +20,15 @@ describe('lab-08-CRRUD-build routes', () => {
       });
 
   });
+  it('gets a cat by the id', async () => { 
+    const response = await request(app)
+      .get('/api/v1/cats/1')
+
+      expect(response.body).toEqual({ 
+        id: '1',
+        cat_name: 'Garfield',
+        breed: 'Orange Tabby Cat'
+      });
+
+  })
 });
