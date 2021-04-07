@@ -42,11 +42,31 @@ describe('lab-08-CRRUD-build routes', () => {
         }
       ]);
   })
+  
+  it('should update a cat by id', async () => { 
+    await request(app)
+    .post('/api/v1/cats')
+    .send({cat_name: 'Garfield', breed: 'Orange Tabby Cat'})
+    
+    await request(app)
+    .put('/api/v1/cats/1')
+    .send({ cat_name: 'GaRfIeLd', breed: 'Orange Tabby Cat'})
+    
+    const result = await request(app)
+    .get('/api/v1/cats/1')
+    console.log(result.body);
+    expect(result.body).toEqual({ 
+      id: '1',
+      cat_name: 'GaRfIeLd',
+      breed: 'Orange Tabby Cat'
+    })
+  })
   it('gets a cat by id and deletes from the database', async () => { 
     const response = await request(app)
       .delete('/api/v1/cats/1')
 
       expect(response.body).toEqual({})
   })
+  
+  });
 
-});
